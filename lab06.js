@@ -21,16 +21,25 @@ let success_threshold_ui = -1.0;
 
 function calc_rand_success() {
   // USE DYNAMIC SUCCESS THRESH FROM UI
-  let succ_thresh =
-    success_threshold_ui >= 0 ? success_threshold_ui : SUCCESS_THRESHOLD;
+  let rand_succ;
   let rand_val = Math.random();
-  let succ_result = rand_val > succ_thresh;
-  console.log(
-    `      [RAND] USING SUCCESS THRESH[${succ_thresh}] RAND_VAL[${rand_val.toFixed(
-      2
-    )}] RESULT[${succ_result}]`
-  );
-  return succ_result;
+
+  if (success_threshold_ui >= 0) {
+    rand_succ = rand_val > success_threshold_ui;
+    console.log(
+      `      [RAND] USING UI SUCCESS THRESH[${success_threshold_ui}] RAND_VAL[${rand_val.toFixed(
+        2
+      )}] RESULT[${rand_succ}]`
+    );
+  } else {
+    rand_succ = rand_val > SUCCESS_THRESHOLD;
+    console.log(
+      `      [RAND] USING CONST SUCCESS THRESH[${SUCCESS_THRESHOLD}] RAND_VAL[${rand_val.toFixed(
+        2
+      )}] RESULT[${rand_succ}]`
+    );
+  }
+  return rand_succ;
 }
 
 // RAND TIME RANGE
@@ -49,13 +58,17 @@ function calc_rand_time() {
     rand_time = time_min_ui + Math.random() * time_max_ui;
 
     console.log(
-      `      [RAND] USING UI MIN_TIME[${time_min_ui}] MAX_TIME[${time_max_ui}] RAND_TIME[${rand_time.toFixed(2)}]`
+      `      [RAND] USING UI MIN_TIME[${time_min_ui}] MAX_TIME[${time_max_ui}] RAND_TIME[${rand_time.toFixed(
+        2
+      )}]`
     );
   } else {
     rand_time = TIME_MIN + Math.random() * TIME_MAX;
 
     console.log(
-      `      [RAND] USING CONST MIN_TIME[${TIME_MIN}] MAX_TIME[${TIME_MAX}] RAND_TIME[${rand_time.toFixed(2)}]`
+      `      [RAND] USING CONST MIN_TIME[${TIME_MIN}] MAX_TIME[${TIME_MAX}] RAND_TIME[${rand_time.toFixed(
+        2
+      )}]`
     );
   }
 
