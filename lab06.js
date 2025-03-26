@@ -21,11 +21,14 @@ let success_threshold_ui = -1.0;
 
 function calc_rand_success() {
   // USE DYNAMIC SUCCESS THRESH FROM UI
-  let succ_thresh = success_threshold_ui >= 0 ? success_threshold_ui : SUCCESS_THRESHOLD;
+  let succ_thresh =
+    success_threshold_ui >= 0 ? success_threshold_ui : SUCCESS_THRESHOLD;
   let rand_val = Math.random();
   let succ_result = rand_val > succ_thresh;
   console.log(
-    `      [RAND] USING SUCCESS THRESH[${succ_thresh}] RAND_VAL[${Math.random().toFixed(2)}] RESULT[${succ_result}]`
+    `      [RAND] USING SUCCESS THRESH[${succ_thresh}] RAND_VAL[${rand_val.toFixed(
+      2
+    )}] RESULT[${succ_result}]`
   );
   return succ_result;
 }
@@ -33,20 +36,30 @@ function calc_rand_success() {
 // RAND TIME RANGE
 // QUICK
 const TIME_MIN = 500;
-const TIME_MAX = 1000;
+const TIME_MAX = 3000;
+
 let time_min_ui = -1.0;
 let time_max_ui = -1.0;
 
-// SLOW
-//   const TIME_MIN = 2000;
-//   const TIME_MAX = 5000;
 function calc_rand_time() {
-  // WIP - DYNAMIC TIME RANGE FROM UI
+  // DYNAMIC TIME RANGE FROM UI
+  let rand_time;
+
   if (time_min_ui >= 0 && time_max_ui >= 0) {
-    return time_min_ui + Math.random() * time_max_ui;
+    rand_time = time_min_ui + Math.random() * time_max_ui;
+
+    console.log(
+      `      [RAND] USING UI MIN_TIME[${time_min_ui}] MAX_TIME[${time_max_ui}] RAND_TIME[${rand_time.toFixed(2)}]`
+    );
   } else {
-    return TIME_MIN + Math.random() * TIME_MAX;
+    rand_time = TIME_MIN + Math.random() * TIME_MAX;
+
+    console.log(
+      `      [RAND] USING CONST MIN_TIME[${TIME_MIN}] MAX_TIME[${TIME_MAX}] RAND_TIME[${rand_time.toFixed(2)}]`
+    );
   }
+
+  return rand_time;
 }
 
 // FETCHUSER
@@ -70,7 +83,7 @@ const fetchUser = (call_type) => {
         resolve({ id: 1, name: "Alice" });
       } else {
         console.log(`   [FETCH_U][${call_type}] FAIL!`);
-        reject(`   [FETCH_U][${call_type}] FAIL`);
+        reject(`[FETCH_U][${call_type}] FAIL`);
       }
     }, wait_time);
     console.log(
@@ -102,7 +115,7 @@ const fetchPosts = (call_type, userId) => {
         ]);
       } else {
         console.log(`   [FETCH_P][${call_type}] FAIL!`);
-        reject(`   [FETCH_P][${call_type}] FAIL`);
+        reject(`[FETCH_P][${call_type}] FAIL`);
       }
     }, wait_time);
   });
@@ -133,7 +146,7 @@ const fetchComments = (call_type, postId) => {
         ]);
       } else {
         console.log(`   [FETCH_C][${call_type}] POSTID[${postId}] FAIL!`);
-        reject(`   [FETCH_C][${call_type}] POSTID[${postId}] FAIL`);
+        reject(`[FETCH_C][${call_type}] POSTID[${postId}] FAIL`);
       }
     }, wait_time);
   });
@@ -163,7 +176,7 @@ async function fetchSequential() {
 
     return { user, posts, comments };
   } catch (error) {
-    console.error(`[FETCHSEQUENTIAL] ERROR[${error}`);
+    console.error(`[FETCHSEQUENTIAL] ERROR[${error}]`);
   }
 
   let seq_time_diff = Date.now() - seq_time_start;
@@ -192,7 +205,7 @@ async function fetchParallel() {
 
     return { user, posts, comments };
   } catch (error) {
-    console.error(`[FETCHPARALLEL] ERROR[${error}`);
+    console.error(`[FETCHPARALLEL] ERROR[${error}]`);
   }
 
   let par_time_diff = Date.now() - par_time_start;
