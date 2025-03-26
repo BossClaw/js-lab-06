@@ -1,0 +1,34 @@
+<!-- NOTE : CRUDE UI FOR TESTING W/O PAGE RELOAD ON GITHUB -->
+<!-- SORRY, NO FANCY UI/UX THIS TIME! -->
+ 
+<html>
+  <head>
+    <script src="lab06.js"></script>
+  </head>
+  <body>
+    <b>Success Thresh (0..100)</b>
+    <input id="succ_thresh" value="50" type="number" min="0" max="100" />
+    <b>Milliseconds Time Min</b>
+    <input id="time_min" value="100"  type="number"/>
+    <b>Millisconeds Time Max</b>
+    <input id="time_max" value="500"  type="number"/>
+    <button id="do_test_butt" type="button">Test</button>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        console.log("[DOM] LOADED, CALLING DEMO FUNC");
+        console.log("-");
+
+        document
+          .querySelector("#do_test_butt")
+          .addEventListener("click", () => {
+            do_test_with_ui_vals(
+              document.querySelector("#succ_thresh").value,
+              document.querySelector("#time_min").value,
+              document.querySelector("#time_max").value
+            );
+          });
+      });
+    </script>
+  </body>
+</html>

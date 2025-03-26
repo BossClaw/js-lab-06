@@ -1,0 +1,20 @@
+<html>
+  <head>
+    <script src="lab06.js"></script>
+  </head>
+  <body>
+    <script>
+      // ATTACH IT TO THE DOM EVENT TO RUN ON PAGE REFRESH
+      document.addEventListener("DOMContentLoaded", () => {
+        console.log("[DOM] LOADED, CALLING DEMO FUNC");
+
+        // DEMO THE SEQUENTIAL
+        // THEN WHEN THAT'S DONE, DEMO THE PARALLEL
+        // THEN WHEN THAT'S DONE, DEMO THE GET USER CONTENT
+        fetchSequential()
+          .then(() => fetchParallel())
+          .then(() => getUserContent());
+      });
+    </script>
+  </body>
+</html>
